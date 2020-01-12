@@ -1,4 +1,7 @@
 module.exports = {
+  publicPath: process.env.NODE_ENV === 'production'
+    ? '/bingo/'
+    : '/',
   pages: {
     sender: {
       entry: 'src/sender.js',
