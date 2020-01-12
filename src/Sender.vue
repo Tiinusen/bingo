@@ -1,24 +1,28 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <google-cast-button />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import GoogleCastButton from "@/components/GoogleCastButton.vue";
+import GoogleCastConfig from "@/mixins/GoogleCastConfig";
 
 export default {
-  name: 'app',
+  name: "app",
+  mixins: [GoogleCastConfig],
   components: {
-    HelloWorld
+    GoogleCastButton
+  },
+  created(){
+    this.hello();
   }
-}
+};
 </script>
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
