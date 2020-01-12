@@ -1,10 +1,12 @@
 import Vue from 'vue'
-import App from './App.vue'
+import Sender from './Sender.vue'
 import store from './store'
+import i18n from './i18n'
 
 Vue.config.productionTip = false
 
 new Vue({
   store,
-  render: h => h(App)
+  i18n,
+  render: h => h(Sender)
 }).$mount('#app')
