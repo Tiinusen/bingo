@@ -14,8 +14,21 @@ export default {
   components: {
     GoogleCastButton
   },
-  created(){
-    this.hello();
+  created() {
+    let script = document.createElement("script");
+    script.setAttribute(
+      "src",
+      "https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"
+    );
+    document.body.appendChild(script);
+    window["__onGCastApiAvailable"] = isAvailable => {
+      if (isAvailable) {
+        cast.framework.CastContext.getInstance().setOptions({
+          receiverApplicationId: this.ApplicationID,
+          autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED
+        });
+      }
+    };
   }
 };
 </script>
