@@ -35,7 +35,7 @@ export default {
           let instance = cast.framework.CastContext.getInstance();
           instance.setOptions({
             receiverApplicationId: this.ApplicationID,
-            autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED
+            autoJoinPolicy: chrome.cast.AutoJoinPolicy.TAB_AND_ORIGIN_SCOPED
           });
           this.$store.dispatch("initializeCast", {
             castInstance: instance,
