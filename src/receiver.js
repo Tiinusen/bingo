@@ -6,6 +6,7 @@ import i18n from './i18n'
 import { BootstrapVue } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import '@/assets/global.css'
 
 Vue.use(BootstrapVue)
 

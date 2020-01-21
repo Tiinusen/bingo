@@ -17,7 +17,7 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    initializeCast({ commit }, {castInstance, castType}) {
+    initializeCast({ commit }, { castInstance, castType }) {
       _instance = castInstance
       if (castType === 'Receiver') {
         _instance.addCustomMessageListener(APP_CAST_CHANNEL, function (customEvent) {
@@ -31,7 +31,9 @@ export default new Vuex.Store({
       dispatch('pushStateToReceiver')
     },
     pushStateToReceiver({ state }) {
-      _instance.getCurrentSession().sendMessage(APP_CAST_CHANNEL, state)
+      if (_instance.getCurrentSession() !== null) {
+        _instance.getCurrentSession().sendMessage(APP_CAST_CHANNEL, state)
+      }
     }
   },
   modules: {
