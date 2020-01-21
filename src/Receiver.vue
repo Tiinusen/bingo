@@ -22,11 +22,13 @@ export default {
       text: state => state.text
     })
   },
-  created() {
-    this.$store.dispatch("initializeCast", {
-      castInstance: cast.framework.CastReceiverContext.getInstance(),
-      castType: "Receiver"
-    });
+  mounted() {
+    setTimeout(() => {
+      this.$store.dispatch("initializeCast", {
+        castInstance: cast.framework.CastReceiverContext.getInstance(),
+        castType: "Receiver"
+      });
+    }, 100);
   }
 };
 </script>

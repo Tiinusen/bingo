@@ -23,7 +23,9 @@ export default new Vuex.Store({
         _instance.addCustomMessageListener(APP_CAST_CHANNEL, function (customEvent) {
           commit('updateText', JSON.stringify(customEvent))
         });
-        _instance.start()
+        let options = new cast.framework.CastReceiverOptions()
+        options.disableIdleTimeout = true
+        _instance.start(options)
       }
     },
     updateText({ commit, dispatch, state }, text) {

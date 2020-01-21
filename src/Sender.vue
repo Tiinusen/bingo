@@ -28,19 +28,21 @@ export default {
       this.$store.dispatch("updateText", e.target.value);
     }
   },
-  created() {
+  mounted() {
     window["__onGCastApiAvailable"] = isAvailable => {
-      if (isAvailable) {
-        let instance = cast.framework.CastContext.getInstance();
-        instance.setOptions({
-          receiverApplicationId: this.ApplicationID,
-          autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED
-        });
-        this.$store.dispatch("initializeCast", {
-          castInstance: instance,
-          castType: "Sender"
-        });
-      }
+      setTimeout(() => {
+        if (isAvailable) {
+          let instance = cast.framework.CastContext.getInstance();
+          instance.setOptions({
+            receiverApplicationId: this.ApplicationID,
+            autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED
+          });
+          this.$store.dispatch("initializeCast", {
+            castInstance: instance,
+            castType: "Sender"
+          });
+        }
+      }, 100);
     };
   }
 };
