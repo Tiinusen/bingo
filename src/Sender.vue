@@ -1,12 +1,16 @@
 <template>
   <div id="app">
     <google-cast-button />
+    <input :value="text" @input="updateText" />
+    <br />
+    {{ text }}
   </div>
 </template>
 
 <script>
 import GoogleCastButton from "@/components/GoogleCastButton.vue";
 import GoogleCastConfig from "@/mixins/GoogleCastConfig";
+import { mapState } from "vuex";
 
 export default {
   name: "app",
@@ -14,18 +18,27 @@ export default {
   components: {
     GoogleCastButton
   },
+  computed: {
+    ...mapState({
+      text: state => state.text
+    })
+  },
+  methods: {
+    updateText(e) {
+      this.$store.dispatch("updateText", e.target.value);
+    }
+  },
   created() {
-    let script = document.createElement("script");
-    script.setAttribute(
-      "src",
-      "https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"
-    );
-    document.body.appendChild(script);
     window["__onGCastApiAvailable"] = isAvailable => {
       if (isAvailable) {
-        cast.framework.CastContext.getInstance().setOptions({
+        let instance = cast.framework.CastContext.getInstance();
+        instance.setOptions({
           receiverApplicationId: this.ApplicationID,
           autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED
+        });
+        this.$store.dispatch("initializeCast", {
+          castInstance: instance,
+          castType: "Sender"
         });
       }
     };

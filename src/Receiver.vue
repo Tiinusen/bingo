@@ -1,10 +1,15 @@
 <template>
-  <div id="app">This is the Family Bingo Receiver App</div>
+  <div id="app">
+    This is the Family Bingo Receiver App
+    <br />
+    {{ text }}
+  </div>
 </template>
 
 <script>
 import GoogleCastButton from "@/components/GoogleCastButton.vue";
 import GoogleCastConfig from "@/mixins/GoogleCastConfig";
+import { mapState } from "vuex";
 
 export default {
   name: "app",
@@ -12,21 +17,16 @@ export default {
   components: {
     GoogleCastButton
   },
+  computed: {
+    ...mapState({
+      text: state => state.text
+    })
+  },
   created() {
-    let script = document.createElement("script");
-    script.setAttribute(
-      "src",
-      "https://www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js"
-    );
-    document.body.appendChild(script);
-    window["__onGCastApiAvailable"] = isAvailable => {
-      if (isAvailable) {
-        cast.framework.CastContext.getInstance().setOptions({
-          receiverApplicationId: this.ApplicationID,
-          autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED
-        });
-      }
-    };
+    this.$store.dispatch("initializeCast", {
+      castInstance: cast.framework.CastReceiverContext.getInstance(),
+      castType: "Receiver"
+    });
   }
 };
 </script>

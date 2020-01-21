@@ -1,4 +1,4 @@
-# bingo
+# Family Bingo
 
 ## Project setup
 ```
